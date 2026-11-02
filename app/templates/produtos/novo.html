@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastrar Produto | StockFlow</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="form-container">
+
+        <h1>Cadastrar produto</h1>
+        <p>Preencha as informações para adicionar um produto ao estoque.</p>
+
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="alert {{ categoria }}">
+                    {{ mensagem }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.sku.label }}
+                {{ form.sku(class="form-control", placeholder="Ex.: MOUSE-002") }}
+                {% for erro in form.sku.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.nome.label }}
+                {{ form.nome(class="form-control", placeholder="Nome do produto") }}
+                {% for erro in form.nome.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.categoria_id.label }}
+                {{ form.categoria_id(class="form-control") }}
+                {% for erro in form.categoria_id.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.fornecedor_id.label }}
+                {{ form.fornecedor_id(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.estoque_minimo.label }}
+                {{ form.estoque_minimo(class="form-control", min="0") }}
+                {% for erro in form.estoque_minimo.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.preco_custo.label }}
+                {{ form.preco_custo(class="form-control", placeholder="0.00") }}
+                {% for erro in form.preco_custo.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.preco_venda.label }}
+                {{ form.preco_venda(class="form-control", placeholder="0.00") }}
+                {% for erro in form.preco_venda.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
+
+            {{ form.submit(class="btn-submit") }}
+
+            <a href="{{ url_for('main.dashboard') }}" class="btn-back">
+                Voltar ao dashboard
+            </a>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

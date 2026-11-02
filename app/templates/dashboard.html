@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | StockFlow</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <span class="brand-icon">S</span>
+                <h2>StockFlow</h2>
+            </div>
+
+            <nav>
+                <p class="menu-title">MENU PRINCIPAL</p>
+
+                <a href="{{ url_for('main.dashboard') }}" class="active">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="#">
+                    <span>📦</span> Produtos
+                </a>
+
+                <a href="#">
+                    <span>⇄</span> Movimentações
+                </a>
+
+                <a href="#">
+                    <span>🏷️</span> Categorias
+                </a>
+
+                <a href="#">
+                    <span>🏢</span> Fornecedores
+                </a>
+
+                <p class="menu-title">GERENCIAMENTO</p>
+
+                <a href="#">
+                    <span>📊</span> Relatórios
+                </a>
+
+                <a href="#">
+                    <span>⚙️</span> Configurações
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <strong>StockFlow</strong>
+                <span>Versão 1.0.0</span>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Visão geral do seu estoque</p>
+                </div>
+
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Usuário</strong>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- INDICADORES -->
+            <section class="metrics">
+
+                <div class="metric-card">
+                    <span>Produtos ativos</span>
+                    <h2>{{ indicadores.total_produtos }}</h2>
+                    <small>Total cadastrado</small>
+                </div>
+
+                <div class="metric-card">
+                    <span>Valor do estoque</span>
+                    <h2>R$ {{ "%.2f"|format(indicadores.valor_estoque_centavos / 100) }}</h2>
+                    <small>Valor estimado</small>
+                </div>
+
+                <div class="metric-card warning">
+                    <span>Estoque baixo</span>
+                    <h2>{{ indicadores.produtos_estoque_baixo }}</h2>
+                    <small>Produtos precisam de atenção</small>
+                </div>
+
+                <div class="metric-card">
+                    <span>Movimentações</span>
+                    <h2>56</h2>
+                    <small>Entradas e saídas</small>
+                </div>
+
+            </section>
+
+            <!-- CONTEÚDO INFERIOR -->
+            <section class="content-grid">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Movimentações recentes</h3>
+                        <span>Últimas operações</span>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Mouse Logitech</td>
+                                <td><span class="entry">Entrada</span></td>
+                                <td>+15</td>
+                                <td>02/11/2026</td>
+                            </tr>
+
+                            <tr>
+                                <td>Teclado Mecânico</td>
+                                <td><span class="exit">Saída</span></td>
+                                <td>-03</td>
+                                <td>02/11/2026</td>
+                            </tr>
+
+                            <tr>
+                                <td>Monitor 24"</td>
+                                <td><span class="entry">Entrada</span></td>
+                                <td>+08</td>
+                                <td>01/11/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Alertas de estoque</h3>
+                    </div>
+
+                    <div class="alert-item">
+                        <strong>Mouse sem fio</strong>
+                        <span>Estoque atual: 2 unidades</span>
+                    </div>
+
+                    <div class="alert-item">
+                        <strong>Teclado USB</strong>
+                        <span>Estoque atual: 1 unidade</span>
+                    </div>
+
+                    <div class="alert-item">
+                        <strong>Webcam HD</strong>
+                        <span>Estoque atual: 3 unidades</span>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

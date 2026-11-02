@@ -1,0 +1,196 @@
+/* Configurações gerais */
+* { 
+  margin: 0;            /* Remove a margem padrão de todos os elementos */
+  padding: 0;           /* Remove o preenchimento padrão de todos os elementos */
+  box-sizing: border-box; /* Inclui bordas e preenchimentos no cálculo da largura/altura total */
+}
+
+body { 
+  font-family: Arial, sans-serif; /* Define a fonte do texto e uma alternativa caso não carregue */
+  background-color: #f4f7fb;     /* Aplica uma cor de fundo cinza bem clara */
+  color: #172554;               /* Define a cor padrão do texto (azul escuro) */
+  min-height: 100vh;            /* Garante que o corpo tenha no mínimo a altura total da tela */
+}
+
+/* Cabeçalho */
+.header { 
+  height: 80px;                  /* Fixa a altura do cabeçalho em 80 pixels */
+  background-color: #ffffff;     /* Define o fundo do cabeçalho como branco */
+  display: flex;                 /* Ativa o Flexbox para organizar os elementos internos */
+  justify-content: space-between;/* Alinha os itens internos separando-os nas extremidades */
+  align-items: center;           /* Alinha verticalmente os itens no centro do cabeçalho */
+  padding: 0 8%;                 /* Adiciona espaçamento interno (0 topo/baixo, 8% nas laterais) */
+  border-bottom: 1px solid #e5e7eb; /* Adiciona uma linha fina cinza na parte inferior */
+}
+
+.logo { 
+  display: flex;          /* Ativa o Flexbox para alinhar o ícone e o texto da logo */
+  align-items: center;    /* Alinha verticalmente o ícone e o texto no centro */
+  gap: 12px;              /* Cria um espaço de 12 pixels entre o ícone e o texto */
+}
+
+.logo-icon { 
+  background-color: #2563eb; /* Define o fundo do ícone como azul */
+  color: white;              /* Define a cor da letra/ícone como branca */
+  width: 38px;               /* Fixa a largura do quadrado do ícone */
+  height: 38px;              /* Fixa a altura do quadrado do ícone */
+  display: flex;             /* Ativa o Flexbox para centralizar o conteúdo do ícone */
+  align-items: center;       /* Centraliza o conteúdo verticalmente */
+  justify-content: center;   /* Centraliza o conteúdo horizontalmente */
+  border-radius: 10px;       /* Arredonda os cantos do ícone */
+  font-weight: bold;         /* Deixa o texto do ícone em negrito */
+  font-size: 20px;           /* Define o tamanho da fonte do ícone */
+}
+
+.logo h1 { 
+  font-size: 23px; /* Define o tamanho da fonte do título principal da logo */
+}
+
+.system-label { 
+  font-size: 11px;       /* Define um tamanho de fonte menor para o rótulo do sistema */
+  letter-spacing: 1px;   /* Adiciona um espaço de 1 pixel entre as letras do texto */
+  color: #64748b;        /* Define a cor do texto como cinza médio */
+}
+
+/* Conteúdo principal */
+.container { 
+  max-width: 1200px;           /* Define a largura máxima que o conteúdo pode atingir */
+  margin: 0 auto;              /* Centraliza o container na tela horizontalmente */
+  padding: 80px 30px 20px;     /* Espaçamento interno: 80px topo, 30px laterais, 20px baixo */
+}
+
+.welcome { 
+  display: flex;                 /* Ativa Flexbox para colocar o texto e o cartão lado a lado */
+  align-items: center;           /* Alinha horizontalmente os blocos de conteúdo pelo centro */
+  justify-content: space-between;/* Empurra o texto para um lado e o cartão para o outro */
+  gap: 60px;                     /* Garante um espaço mínimo de 60 pixels entre os dois blocos */
+  min-height: 430px;             /* Define uma altura mínima para a seção de boas-vindas */
+}
+
+.welcome-content { 
+  max-width: 620px; /* Limita a largura do bloco de texto para melhorar a leitura */
+}
+
+.tag { 
+  color: #2563eb;           /* Define a cor do texto da tag como azul */
+  font-size: 12px;          /* Define um tamanho de fonte pequeno */
+  font-weight: bold;        /* Aplica negrito ao texto da tag */
+  letter-spacing: 1.5px;    /* Aumenta o espaçamento entre as letras da tag */
+}
+
+.welcome-content h2 { 
+  font-size: 42px;    /* Define um tamanho grande para o título principal */
+  line-height: 1.2;   /* Ajusta o espaçamento entre as linhas do título */
+  margin: 22px 0;     /* Adiciona margem de 22px acima e abaixo do título */
+}
+
+.welcome-content h2 span { 
+  display: block;   /* Faz com que o texto dentro do span quebre para a próxima linha */
+  color: #2563eb;   /* Altera a cor do texto do span para azul */
+}
+
+.welcome-content p { 
+  color: #64748b;       /* Define a cor do parágrafo como cinza */
+  font-size: 16px;      /* Define o tamanho da fonte do parágrafo */
+  line-height: 1.8;     /* Define um espaçamento confortável entre as linhas do parágrafo */
+  margin-bottom: 30px;  /* Adiciona um espaço de 30 pixels abaixo do parágrafo */
+}
+
+.btn-primary { 
+  background-color: #2563eb; /* Define a cor de fundo do botão como azul */
+  color: white;              /* Define a cor do texto do botão como branca */
+  border: none;              /* Remove as bordas padrão do botão */
+  padding: 15px 28px;        /* Define o preenchimento (15px cima/baixo, 28px laterais) */
+  border-radius: 8px;        /* Arredonda os cantos do botão */
+  font-size: 15px;           /* Define o tamanho da fonte do botão */
+  font-weight: bold;         /* Deixa o texto do botão em negrito */
+  cursor: pointer;           /* Transforma o cursor do mouse em "mãozinha" ao passar por cima */
+  transition: 0.3s;          /* Cria uma animação suave de 0.3 segundos para efeitos visuais */
+}
+
+.btn-primary:hover { 
+  background-color: #1d4ed8;  /* Escurece a cor do botão quando o mouse está sobre ele */
+  transform: translateY(-2px);/* Move o botão levemente para cima para criar efeito de clique */
+}
+
+/* Cartão de apresentação */
+.welcome-card { 
+  background-color: #ffffff; /* Define o fundo do cartão como branco */
+  width: 310px;              /* Fixa a largura do cartão */
+  min-height: 250px;         /* Define a altura mínima do cartão */
+  padding: 35px;             /* Adiciona preenchimento interno em todos os lados */
+  border-radius: 16px;       /* Arredonda bastante os cantos do cartão */
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08); /* Cria uma sombra suave abaixo do cartão */
+}
+
+.card-icon { 
+  font-size: 40px;      /* Define o tamanho do ícone do cartão (geralmente emoji ou fonte) */
+  margin-bottom: 20px;  /* Adiciona espaçamento abaixo do ícone */
+}
+
+.welcome-card h3 { 
+  font-size: 22px;      /* Define o tamanho do título interno do cartão */
+  margin-bottom: 10px;  /* Adiciona um pequeno espaço abaixo do título */
+}
+
+.welcome-card p { 
+  color: #64748b;       /* Define a cor do texto do cartão como cinza */
+  font-size: 14px;      /* Define um tamanho de fonte menor para o texto do cartão */
+  margin-bottom: 25px;  /* Adiciona espaçamento abaixo do parágrafo */
+}
+
+.card-status { 
+  font-size: 11px;    /* Define um tamanho bem pequeno para o texto de status */
+  color: #64748b;     /* Define a cor cinza para o texto de status */
+  display: flex;      /* Ativa Flexbox para alinhar a bolinha indicadora e o texto */
+  align-items: center;/* Alinha verticalmente a bolinha e o texto no centro */
+  gap: 8px;           /* Cria um espaço de 8 pixels entre a bolinha e o texto */
+}
+
+.card-status span { 
+  width: 8px;                 /* Define a largura da bolinha de status */
+  height: 8px;                /* Define a altura da bolinha de status */
+  background-color: #f59e0b;  /* Pinta a bolinha de amarelo/laranja */
+  border-radius: 50%;         /* Transforma o elemento quadrado em um círculo perfeito */
+}
+
+/* Rodapé */
+footer { 
+  text-align: center; /* Centraliza o texto do rodapé na tela */
+  color: #94a3b8;     /* Aplica uma cor cinza clara para o texto */
+  font-size: 12px;    /* Define um tamanho pequeno para a fonte */
+  margin-top: 90px;   /* Cria um grande espaçamento acima do rodapé, separando do conteúdo */
+}
+
+/* Responsividade (Ajustes para telas menores como celulares) */
+@media (max-width: 768px) { 
+  .header { 
+    padding: 0 5%; /* Reduz o espaçamento lateral do cabeçalho para telas menores */
+  }
+  
+  .system-label { 
+    display: none; /* Esconde o rótulo do sistema para poupar espaço em telas pequenas */
+  }
+  
+  .container { 
+    padding: 45px 20px; /* Reduz os espaçamentos internos do container principal */
+  }
+  
+  .welcome { 
+    flex-direction: column;    /* Altera a disposição para vertical (um conteúdo abaixo do outro) */
+    align-items: flex-start;  /* Alinha os blocos à esquerda */
+    gap: 40px;                 /* Reduz o espaço entre o texto e o cartão */
+  }
+  
+  .welcome-content h2 { 
+    font-size: 32px; /* Diminui o tamanho do título para caber melhor em telas de celular */
+  }
+  
+  .welcome-card { 
+    width: 100%; /* Faz o cartão ocupar toda a largura disponível na tela do celular */
+  }
+  
+  footer { 
+    margin-top: 50px; /* Reduz o espaçamento acima do rodapé em telas menores */
+  }
+}
