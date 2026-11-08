@@ -157,6 +157,6 @@ O StockFlow está em desenvolvimento. Novas funcionalidades estão sendo impleme
 
 ## Autor
 
-Desenvolvido por **[Seu nome]**.
+Desenvolvido por **Mileny Brasilino.
 
 Projeto pessoal de aprendizado e desenvolvimento prático na área de Tecnologia e Ciência de Dados.
