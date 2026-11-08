@@ -40,6 +40,8 @@ def create_app():
     from .routes.produtos import produtos
     app.register_blueprint(produtos)
 
+    from .routes.movimentacoes import movimentacoes
+    app.register_blueprint(movimentacoes)
     
 
     return app

@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Histórico de movimentações | StockFlow</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">S</span>
+            <h1>StockFlow</h1>
+        </div>
+
+        <span class="system-label">GESTÃO INTELIGENTE DE ESTOQUE</span>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome-content">
+
+            <h2>Histórico de movimentações</h2>
+
+            <p>
+                Acompanhe as entradas e saídas registradas no estoque.
+            </p>
+
+            <a href="{{ url_for('movimentacoes.nova_movimentacao') }}">
+                Nova movimentação
+            </a>
+
+            {% if movimentacoes %}
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Produto</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th>Motivo</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for movimentacao in movimentacoes %}
+
+                                <tr>
+                                    <td>
+                                        {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
+                                    </td>
+
+                                    <td>
+                                        {{ movimentacao.produto.nome }}
+                                    </td>
+
+                                    <td>
+                                        {{ movimentacao.tipo }}
+                                    </td>
+
+                                    <td>
+                                        {{ movimentacao.quantidade }}
+                                    </td>
+
+                                    <td>
+                                        {{ movimentacao.motivo }}
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <p>Nenhuma movimentação registrada até o momento.</p>
+
+            {% endif %}
+
+        </section>
+
+        <footer>
+            <p>StockFlow © 2026 | Sistema de Gerenciamento de Estoque</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
