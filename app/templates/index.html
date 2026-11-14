@@ -15,13 +15,16 @@
             <span class="logo-icon">S</span>
             <H1>StockFlow</H1>
         </div>
-        <!-- MENU SUPERIOR
-        <nav class="nav-links">Login</nav>
-        <nav class="nav-links">Dashboard</nav>
-        <nav class="nav-links">na</nav>
-        <nav class="nav-links">na</nav>
-        -- MENU SUPERIOR -->
-        
+        <nav class="nav-links">
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+
+            <a href="{{ url_for('produtos.listar_produtos') }}">Produtos</a>
+
+            <a href="{{ url_for('produtos.novo_produto') }}">Novo produto</a>
+
+            <a href="{{ url_for('movimentacoes.listar') }}">Movimentações</a>
+        </nav>
+                
         <span class="system-label">GESTÃO INTELIGENTE DE ESTOQUE</span>
     </header>
 

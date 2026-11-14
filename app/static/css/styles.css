@@ -46,6 +46,28 @@ body {
   font-size: 23px; /* Define o tamanho da fonte do título principal da logo */
 }
 
+
+/* Menu de navegação */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+  transform: translateY(-2px);
+}
+
+
 .system-label { 
   font-size: 11px;       /* Define um tamanho de fonte menor para o rótulo do sistema */
   letter-spacing: 1px;   /* Adiciona um espaço de 1 pixel entre as letras do texto */
@@ -193,4 +215,546 @@ footer {
   footer { 
     margin-top: 50px; /* Reduz o espaçamento acima do rodapé em telas menores */
   }
+
+  .nav-links {
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+}
+
+
+/* Situação do estoque */
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Produto disponível */
+.disponivel {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+/* Estoque baixo */
+.estoque-baixo {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* Sem estoque */
+.sem-estoque {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Área da listagem de produtos */
+.form-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* Tabela de produtos */
+.form-container table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* Cabeçalho */
+.form-container th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-size: 13px;
+    padding: 15px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Células */
+.form-container td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+/* Efeito ao passar o mouse */
+.form-container tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Barra de pesquisa */
+.form-container form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.form-container input[name="busca"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-container input[name="busca"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-container form button {
+    padding: 12px 20px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-container form button:hover {
+    background-color: #1d4ed8;
+}
+
+.form-container form a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.form-container form a:hover {
+    color: #2563eb;
+}
+
+/* Botão cadastrar produto */
+.btn-cadastrar {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+/* Tabela responsiva */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.table-responsive table {
+    min-width: 850px;
+}
+
+/* Ajustes para celulares */
+@media (max-width: 768px) {
+
+    .form-container {
+        margin: 20px 10px;
+        padding: 20px 15px;
+    }
+
+    .form-container h1 {
+        font-size: 24px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 12px;
+        white-space: nowrap;
+    }
+}
+
+/* Organização dos campos do formulário */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Grupo de cada campo */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Rótulos */
+.form-group label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Campos de preenchimento */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Destaque ao selecionar um campo */
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Botão de cadastrar */
+.btn-submit {
+    display: inline-block;
+    padding: 13px 22px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+/* Botão voltar */
+.btn-back {
+    display: inline-block;
+    padding: 13px 22px;
+    margin-left: 10px;
+    background-color: #e2e8f0;
+    color: #334155;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+/* Mensagens do sistema */
+.alert {
+    padding: 14px 16px;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Sucesso */
+.alert.success {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* Erro */
+.alert.danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Erros de validação dos campos */
+.error {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* Responsividade do formulário */
+@media (max-width: 768px) {
+
+    .form-container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+
+    .form-container h1 {
+        font-size: 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .btn-submit,
+    .btn-back {
+        width: 100%;
+        text-align: center;
+        margin: 8px 0 0;
+    }
+}
+
+/* Formulário de movimentações */
+.movement-form {
+    background-color: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 850px;
+    margin: 30px auto;
+}
+
+.movement-form form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.movement-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.movement-form .form-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.movement-form .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.movement-form .form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.movement-form .btn-primary {
+    grid-column: 1 / -1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.movement-form .btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.movement-form .error {
+    color: #dc2626;
+    font-size: 12px;
+}
+
+.movement-form .alert {
+    margin: 15px 0;
+}
+
+.movement-form > a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.movement-form > a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .movement-form {
+        margin: 20px 12px;
+        padding: 22px;
+    }
+
+    .movement-form form {
+        grid-template-columns: 1fr;
+    }
+
+    .movement-form .btn-primary {
+        width: 100%;
+    }
+}
+
+/* Filtros do histórico de movimentações */
+.filters-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: end;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.filters-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filters-form label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.filters-form .form-control {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.filter-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-actions .btn-primary {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filter-actions .btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.filter-actions .btn-clear {
+    padding: 11px 18px;
+    border-radius: 6px;
+    background-color: #e2e8f0;
+    color: #334155;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.filter-actions .btn-clear:hover {
+    background-color: #cbd5e1;
+}
+
+/* Filtros em telas menores */
+@media (max-width: 768px) {
+    .filters-form {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .filter-actions {
+        grid-column: 1;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-actions .btn-primary,
+    .filter-actions .btn-clear {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Identificação do tipo de movimentação */
+.movement-type {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.movement-type.entrada {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.movement-type.saida {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Tabela do histórico de movimentações */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 25px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+    background-color: #ffffff;
+}
+
+.table-container th {
+    background-color: #f1f5f9;
+    color: #334155;
+    padding: 15px;
+    text-align: left;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.table-container td {
+    padding: 14px 15px;
+    border-top: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 14px;
+}
+
+.table-container tbody tr:hover {
+    background-color: #f8fafc;
 }

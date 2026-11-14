@@ -8,53 +8,106 @@
     <title>Produtos | StockFlow</title>
 
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
 
+    <header class="header">
+        <div class="logo">
+            <h2>StockFlow</h2>
+        </div>
+
+        <nav class="nav-links">
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('produtos.listar_produtos') }}">Produtos</a>
+            <a href="{{ url_for('produtos.novo_produto') }}">Novo produto</a>
+            <a href="{{ url_for('movimentacoes.listar') }}">Movimentações</a>
+        </nav>
+    </header>
+
     <main class="form-container">
 
         <h1>Produtos cadastrados</h1>
-        <p>Consulte os produtos registrados no StockFlow.</p>
+        <p>Consulte e acompanhe os produtos registrados no StockFlow.</p>
 
-        <a href="{{ url_for('produtos.novo_produto') }}">
+        <form method="GET"
+              action="{{ url_for('produtos.listar_produtos') }}"
+              class="search-form">
+
+            <input
+                type="text"
+                name="busca"
+                placeholder="Pesquisar por nome ou SKU..."
+                value="{{ busca }}"
+            >
+
+            <button type="submit">Pesquisar</button>
+
+            {% if busca %}
+                <a href="{{ url_for('produtos.listar_produtos') }}">
+                    Limpar pesquisa
+                </a>
+            {% endif %}
+
+        </form>
+
+        <a href="{{ url_for('produtos.novo_produto') }}"
+           class="btn-cadastrar">
             + Cadastrar produto
         </a>
 
         {% if produtos %}
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>SKU</th>
-                        <th>Produto</th>
-                        <th>Categoria</th>
-                        <th>Quantidade</th>
-                        <th>Estoque mínimo</th>
-                        <th>Preço de venda</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for produto in produtos %}
+            <div class="table-responsive">
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ produto.sku }}</td>
-                            <td>{{ produto.nome }}</td>
-                            <td>{{ produto.categoria.nome }}</td>
-                            <td>{{ produto.quantidade }}</td>
-                            <td>{{ produto.estoque_minimo }}</td>
-                            <td>
-                                R$ {{ "%.2f"|format(produto.preco_venda_centavos / 100) }}
-                            </td>
+                            <th>SKU</th>
+                            <th>Produto</th>
+                            <th>Categoria</th>
+                            <th>Quantidade</th>
+                            <th>Estoque mínimo</th>
+                            <th>Situação</th>
+                            <th>Preço de venda</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {% for produto in produtos %}
+                            <tr>
+                                <td>{{ produto.sku }}</td>
+                                <td>{{ produto.nome }}</td>
+                                <td>{{ produto.categoria.nome }}</td>
+                                <td>{{ produto.quantidade }}</td>
+                                <td>{{ produto.estoque_minimo }}</td>
+
+                                <td>
+                                    {% if produto.quantidade == 0 %}
+                                        <span class="status sem-estoque">Sem estoque</span>
+                                    {% elif produto.quantidade <= produto.estoque_minimo %}
+                                        <span class="status estoque-baixo">Estoque baixo</span>
+                                    {% else %}
+                                        <span class="status disponivel">Disponível</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    R$ {{ "%.2f"|format(produto.preco_venda_centavos / 100) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
         {% else %}
 
-            <p>Nenhum produto cadastrado.</p>
+            {% if busca %}
+                <p>Nenhum produto encontrado para "{{ busca }}".</p>
+            {% else %}
+                <p>Nenhum produto cadastrado.</p>
+            {% endif %}
 
         {% endif %}
 

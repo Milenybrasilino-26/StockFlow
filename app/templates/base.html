@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}StockFlow{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo">
+            <h2>StockFlow</h2>
+        </div>
+
+        <nav class="nav-links">
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('produtos.listar_produtos') }}">Produtos</a>
+            <a href="{{ url_for('produtos.novo_produto') }}">Novo produto</a>
+            <a href="{{ url_for('movimentacoes.listar') }}">Movimentações</a>
+            <a href="{{ url_for('movimentacoes.nova_movimentacao') }}">Nova movimentação</a>
+        </nav>
+
+    </header>
+
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>StockFlow © 2026 | Sistema de Gerenciamento de Estoque</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,5 +1,14 @@
 
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import (
+    Blueprint,
+    render_template,
+    redirect,
+    url_for,
+    flash,
+    request
+)
+
+from app.models import Produto
 
 from app.forms.movimentacao_form import (
     MovimentacaoForm,
@@ -36,7 +45,9 @@ def nova_movimentacao():
                 "success"
             )
 
-            return redirect(url_for("movimentacoes.nova_movimentacao"))
+            return redirect(
+                url_for("movimentacoes.nova_movimentacao")
+            )
 
         except ValueError as erro:
             flash(str(erro), "danger")
@@ -54,11 +65,30 @@ def nova_movimentacao():
 
 
 @movimentacoes.route("/movimentacoes")
+@movimentacoes.route("/movimentacoes/listar")
 def listar():
 
-    historico = listar_movimentacoes()
+    produto_id = request.args.get("produto_id", type=int)
+    tipo = request.args.get("tipo", "").strip().upper()
+
+    if tipo not in ["", "ENTRADA", "SAIDA"]:
+        tipo = ""
+
+    historico = listar_movimentacoes(
+        produto_id=produto_id,
+        tipo=tipo if tipo else None
+    )
+
+    produtos = Produto.query.filter_by(
+        ativo=True
+    ).order_by(
+        Produto.nome.asc()
+    ).all()
 
     return render_template(
         "movimentacoes/listar.html",
-        movimentacoes=historico
+        movimentacoes=historico,
+        produtos=produtos,
+        produto_selecionado=produto_id,
+        tipo_selecionado=tipo
     )

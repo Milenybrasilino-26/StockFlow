@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
+from sqlalchemy import or_
 
 from app import db
 from app.models import Produto
@@ -58,13 +59,24 @@ def novo_produto():
 @produtos.route("/produtos")
 def listar_produtos():
 
-    lista_produtos = Produto.query.filter_by(
-        ativo=True
-    ).order_by(
+    busca = request.args.get("busca", "").strip()
+
+    consulta = Produto.query.filter_by(ativo=True)
+
+    if busca:
+        consulta = consulta.filter(
+            or_(
+                Produto.nome.ilike(f"%{busca}%"),
+                Produto.sku.ilike(f"%{busca}%")
+            )
+        )
+
+    lista_produtos = consulta.order_by(
         Produto.nome.asc()
     ).all()
 
     return render_template(
         "produtos/listar.html",
-        produtos=lista_produtos
+        produtos=lista_produtos,
+        busca=busca
     )

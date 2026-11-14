@@ -31,30 +31,22 @@
                     <span>▦</span> Dashboard
                 </a>
 
-                <a href="#">
+                <a href="{{ url_for('produtos.listar_produtos') }}">
                     <span>📦</span> Produtos
                 </a>
 
-                <a href="#">
+                <a href="{{ url_for('movimentacoes.listar') }}">
                     <span>⇄</span> Movimentações
-                </a>
-
-                <a href="#">
-                    <span>🏷️</span> Categorias
-                </a>
-
-                <a href="#">
-                    <span>🏢</span> Fornecedores
                 </a>
 
                 <p class="menu-title">GERENCIAMENTO</p>
 
-                <a href="#">
-                    <span>📊</span> Relatórios
+                <a href="{{ url_for('produtos.novo_produto') }}">
+                    <span>＋</span> Cadastrar produto
                 </a>
 
-                <a href="#">
-                    <span>⚙️</span> Configurações
+                <a href="{{ url_for('movimentacoes.nova_movimentacao') }}">
+                    <span>⇄</span> Nova movimentação
                 </a>
             </nav>
 
@@ -95,7 +87,7 @@
                 <div class="metric-card">
                     <span>Valor do estoque</span>
                     <h2>R$ {{ "%.2f"|format(indicadores.valor_estoque_centavos / 100) }}</h2>
-                    <small>Valor estimado</small>
+                    <small>{{ indicadores.total_unidades }} unidades disponíveis</small>
                 </div>
 
                 <div class="metric-card warning">
@@ -106,10 +98,9 @@
 
                 <div class="metric-card">
                     <span>Movimentações</span>
-                    <h2>56</h2>
-                    <small>Entradas e saídas</small>
+                    <h2>{{ indicadores.total_movimentacoes }}</h2>
+                    <small>Total de operações registradas</small>
                 </div>
-
             </section>
 
             <!-- CONTEÚDO INFERIOR -->
@@ -132,26 +123,37 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Mouse Logitech</td>
-                                <td><span class="entry">Entrada</span></td>
-                                <td>+15</td>
-                                <td>02/11/2026</td>
-                            </tr>
 
-                            <tr>
-                                <td>Teclado Mecânico</td>
-                                <td><span class="exit">Saída</span></td>
-                                <td>-03</td>
-                                <td>02/11/2026</td>
-                            </tr>
+                            {% for movimentacao in indicadores.movimentacoes_recentes %}
 
-                            <tr>
-                                <td>Monitor 24"</td>
-                                <td><span class="entry">Entrada</span></td>
-                                <td>+08</td>
-                                <td>01/11/2026</td>
-                            </tr>
+                                <tr>
+                                    <td>{{ movimentacao.produto.nome }}</td>
+
+                                    <td>
+                                        {% if movimentacao.tipo == "ENTRADA" %}
+                                            <span class="entry">Entrada</span>
+                                        {% else %}
+                                            <span class="exit">Saída</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if movimentacao.tipo == "ENTRADA" %}+{% else %}-{% endif %}{{ movimentacao.quantidade }}
+                                    </td>
+
+                                    <td>
+                                        {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
+                                    </td>
+                                </tr>
+
+                            {% else %}
+
+                                <tr>
+                                    <td colspan="4">Nenhuma movimentação registrada.</td>
+                                </tr>
+
+                            {% endfor %}
+
                         </tbody>
                     </table>
                 </div>
@@ -160,21 +162,27 @@
                     <div class="panel-header">
                         <h3>Alertas de estoque</h3>
                     </div>
+                                            
+                        {% for produto in indicadores.lista_produtos_estoque_baixo %}
 
-                    <div class="alert-item">
-                        <strong>Mouse sem fio</strong>
-                        <span>Estoque atual: 2 unidades</span>
-                    </div>
+                            <div class="alert-item">
+                                <strong>{{ produto.nome }}</strong>
 
-                    <div class="alert-item">
-                        <strong>Teclado USB</strong>
-                        <span>Estoque atual: 1 unidade</span>
-                    </div>
+                                <span>
+                                    Estoque atual: {{ produto.quantidade }} unidades
+                                    (Mínimo: {{ produto.estoque_minimo }})
+                                </span>
+                            </div>
 
-                    <div class="alert-item">
-                        <strong>Webcam HD</strong>
-                        <span>Estoque atual: 3 unidades</span>
-                    </div>
+                        {% else %}
+
+                            <div class="alert-item">
+                                <strong>Estoque em dia!</strong>
+                                <span>Nenhum produto precisa de reposição.</span>
+                            </div>
+
+                        {% endfor %}
+
                 </div>
 
             </section>

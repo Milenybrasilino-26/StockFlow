@@ -24,7 +24,7 @@
 
     <main class="container">
 
-        <section class="welcome-content">
+        <section class="welcome-content movement-form">
 
             <h2>Nova movimentação</h2>
 
@@ -35,7 +35,7 @@
             {% with mensagens = get_flashed_messages(with_categories=true) %}
                 {% if mensagens %}
                     {% for categoria, mensagem in mensagens %}
-                        <div class="alert alert-{{ categoria }}">
+                        <div class="alert {{ categoria }}">
                             {{ mensagem }}
                         </div>
                     {% endfor %}
@@ -50,7 +50,7 @@
                     {{ form.produto_id.label }}
                     {{ form.produto_id(class="form-control") }}
                     {% for erro in form.produto_id.errors %}
-                        <small>{{ erro }}</small>
+                        <small class="error">{{ erro }}</small>
                     {% endfor %}
                 </div>
 
@@ -58,7 +58,7 @@
                     {{ form.tipo.label }}
                     {{ form.tipo(class="form-control") }}
                     {% for erro in form.tipo.errors %}
-                        <small>{{ erro }}</small>
+                        <small class="error">{{ erro }}</small>
                     {% endfor %}
                 </div>
 
@@ -66,7 +66,7 @@
                     {{ form.quantidade.label }}
                     {{ form.quantidade(class="form-control", min="1") }}
                     {% for erro in form.quantidade.errors %}
-                        <small>{{ erro }}</small>
+                        <small class="error">{{ erro }}</small>
                     {% endfor %}
                 </div>
 
@@ -74,7 +74,7 @@
                     {{ form.motivo.label }}
                     {{ form.motivo(class="form-control") }}
                     {% for erro in form.motivo.errors %}
-                        <small>{{ erro }}</small>
+                        <small class="error">{{ erro }}</small>
                     {% endfor %}
                 </div>
 

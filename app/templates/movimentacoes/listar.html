@@ -16,88 +16,135 @@
 
     <header class="header">
         <div class="logo">
-            <span class="logo-icon">S</span>
-            <h1>StockFlow</h1>
+            <h2>StockFlow</h2>
         </div>
 
-        <span class="system-label">GESTÃO INTELIGENTE DE ESTOQUE</span>
+        <nav class="nav-links">
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('produtos.listar_produtos') }}">Produtos</a>
+            <a href="{{ url_for('produtos.novo_produto') }}">Novo produto</a>
+            <a href="{{ url_for('movimentacoes.listar') }}">Movimentações</a>
+        </nav>
     </header>
 
-    <main class="container">
+    <main class="form-container">
 
-        <section class="welcome-content">
+        <h1>Histórico de movimentações</h1>
 
-            <h2>Histórico de movimentações</h2>
+        <p>
+            Acompanhe as entradas e saídas registradas no estoque.
+        </p>
 
-            <p>
-                Acompanhe as entradas e saídas registradas no estoque.
-            </p>
+        <a href="{{ url_for('movimentacoes.nova_movimentacao') }}"
+           class="btn-cadastrar">
+            + Nova movimentação
+        </a>
 
-            <a href="{{ url_for('movimentacoes.nova_movimentacao') }}">
-                Nova movimentação
-            </a>
+        <form method="GET"
+              action="{{ url_for('movimentacoes.listar') }}"
+              class="filters-form">
 
-            {% if movimentacoes %}
+            <div class="form-group">
+                <label for="produto_id">Filtrar por produto</label>
 
-                <div class="table-container">
+                <select name="produto_id" id="produto_id" class="form-control">
+                    <option value="">Todos os produtos</option>
 
-                    <table>
+                    {% for produto in produtos %}
+                        <option
+                            value="{{ produto.id }}"
+                            {% if produto_selecionado == produto.id %}selected{% endif %}
+                        >
+                            {{ produto.sku }} - {{ produto.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-                        <thead>
+            <div class="form-group">
+                <label for="tipo">Tipo de movimentação</label>
+
+                <select name="tipo" id="tipo" class="form-control">
+
+                    <option value="">Todas</option>
+
+                    <option value="ENTRADA"
+                        {% if tipo_selecionado == "ENTRADA" %}selected{% endif %}>
+                        Entrada
+                    </option>
+
+                    <option value="SAIDA"
+                        {% if tipo_selecionado == "SAIDA" %}selected{% endif %}>
+                        Saída
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn-primary">
+                    Filtrar movimentações
+                </button>
+
+                <a href="{{ url_for('movimentacoes.listar') }}"
+                   class="btn-clear">
+                    Limpar filtros
+                </a>
+            </div>
+
+        </form>
+
+        {% if movimentacoes %}
+
+            <div class="table-responsive">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Motivo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for movimentacao in movimentacoes %}
                             <tr>
-                                <th>Data</th>
-                                <th>Produto</th>
-                                <th>Tipo</th>
-                                <th>Quantidade</th>
-                                <th>Motivo</th>
+                                <td>
+                                    {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
+                                </td>
+
+                                <td>{{ movimentacao.produto.nome }}</td>
+
+                                <td>
+                                    {% if movimentacao.tipo == "ENTRADA" %}
+                                        <span class="movement-type entrada">Entrada</span>
+                                    {% else %}
+                                        <span class="movement-type saida">Saída</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ movimentacao.quantidade }}</td>
+
+                                <td>{{ movimentacao.motivo }}</td>
                             </tr>
-                        </thead>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-                        <tbody>
+            </div>
 
-                            {% for movimentacao in movimentacoes %}
+        {% else %}
 
-                                <tr>
-                                    <td>
-                                        {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
-                                    </td>
+            <p>Nenhuma movimentação encontrada para os filtros selecionados.</p>
 
-                                    <td>
-                                        {{ movimentacao.produto.nome }}
-                                    </td>
+        {% endif %}
 
-                                    <td>
-                                        {{ movimentacao.tipo }}
-                                    </td>
-
-                                    <td>
-                                        {{ movimentacao.quantidade }}
-                                    </td>
-
-                                    <td>
-                                        {{ movimentacao.motivo }}
-                                    </td>
-                                </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            {% else %}
-
-                <p>Nenhuma movimentação registrada até o momento.</p>
-
-            {% endif %}
-
-        </section>
-
-        <footer>
-            <p>StockFlow © 2026 | Sistema de Gerenciamento de Estoque</p>
-        </footer>
+        <a href="{{ url_for('main.dashboard') }}" class="btn-back">
+            Voltar ao dashboard
+        </a>
 
     </main>
 
