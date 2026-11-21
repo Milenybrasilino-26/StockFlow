@@ -1,100 +1,82 @@
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <title>Nova movimentação | StockFlow</title>
+{% block title %}Nova movimentação | StockFlow{% endblock %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
+{% block content %}
 
-<body>
+<section class="container">
 
-    <header class="header">
-        <div class="logo">
-            <span class="logo-icon">S</span>
-            <h1>StockFlow</h1>
-        </div>
+    <section class="welcome-content movement-form">
 
-        <span class="system-label">GESTÃO INTELIGENTE DE ESTOQUE</span>
-    </header>
+        <h2>Nova movimentação</h2>
 
-    <main class="container">
+        <p>
+            Registre entradas e saídas de produtos do estoque.
+        </p>
 
-        <section class="welcome-content movement-form">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="alert {{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-            <h2>Nova movimentação</h2>
+        <form method="POST">
 
-            <p>
-                Registre entradas e saídas de produtos do estoque.
-            </p>
+            {{ form.hidden_tag() }}
 
-            {% with mensagens = get_flashed_messages(with_categories=true) %}
-                {% if mensagens %}
-                    {% for categoria, mensagem in mensagens %}
-                        <div class="alert {{ categoria }}">
-                            {{ mensagem }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            <div class="form-group">
+                {{ form.produto_id.label }}
+                {{ form.produto_id(class="form-control") }}
 
-            <form method="POST">
+                {% for erro in form.produto_id.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
 
-                {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.tipo.label }}
+                {{ form.tipo(class="form-control") }}
 
-                <div class="form-group">
-                    {{ form.produto_id.label }}
-                    {{ form.produto_id(class="form-control") }}
-                    {% for erro in form.produto_id.errors %}
-                        <small class="error">{{ erro }}</small>
-                    {% endfor %}
-                </div>
+                {% for erro in form.tipo.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
 
-                <div class="form-group">
-                    {{ form.tipo.label }}
-                    {{ form.tipo(class="form-control") }}
-                    {% for erro in form.tipo.errors %}
-                        <small class="error">{{ erro }}</small>
-                    {% endfor %}
-                </div>
+            <div class="form-group">
+                {{ form.quantidade.label }}
+                {{ form.quantidade(class="form-control", min="1") }}
 
-                <div class="form-group">
-                    {{ form.quantidade.label }}
-                    {{ form.quantidade(class="form-control", min="1") }}
-                    {% for erro in form.quantidade.errors %}
-                        <small class="error">{{ erro }}</small>
-                    {% endfor %}
-                </div>
+                {% for erro in form.quantidade.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
 
-                <div class="form-group">
-                    {{ form.motivo.label }}
-                    {{ form.motivo(class="form-control") }}
-                    {% for erro in form.motivo.errors %}
-                        <small class="error">{{ erro }}</small>
-                    {% endfor %}
-                </div>
+            <div class="form-group">
+                {{ form.motivo.label }}
+                {{ form.motivo(class="form-control") }}
 
-                {{ form.submit(class="btn-primary") }}
+                {% for erro in form.motivo.errors %}
+                    <small class="error">{{ erro }}</small>
+                {% endfor %}
+            </div>
 
-            </form>
+            {{ form.submit(class="btn-primary") }}
 
-            <br>
+        </form>
 
-            <a href="{{ url_for('movimentacoes.listar') }}">
-                Consultar histórico de movimentações
-            </a>
+        <br>
 
-        </section>
+        <a href="{{ url_for('movimentacoes.listar') }}">
+            Consultar histórico de movimentações
+        </a>
 
-        <footer>
-            <p>StockFlow © 2026 | Sistema de Gerenciamento de Estoque</p>
-        </footer>
+    </section>
 
-    </main>
+</section>
 
-</body>
-</html>
+{% endblock %}

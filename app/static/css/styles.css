@@ -295,7 +295,7 @@ footer {
 }
 
 /* Barra de pesquisa */
-.form-container form {
+.form-container .search-form {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -319,7 +319,7 @@ footer {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.form-container form button {
+.form-container .search-form button {
     padding: 12px 20px;
     background-color: #2563eb;
     color: white;
@@ -329,17 +329,17 @@ footer {
     cursor: pointer;
 }
 
-.form-container form button:hover {
+.form-container .search-form button:hover {
     background-color: #1d4ed8;
 }
 
-.form-container form a {
+.form-container .search-form a {
     color: #64748b;
     text-decoration: none;
     font-size: 13px;
 }
 
-.form-container form a:hover {
+.form-container .search-form a:hover {
     color: #2563eb;
 }
 
@@ -373,24 +373,7 @@ footer {
     min-width: 850px;
 }
 
-/* Ajustes para celulares */
-@media (max-width: 768px) {
 
-    .form-container {
-        margin: 20px 10px;
-        padding: 20px 15px;
-    }
-
-    .form-container h1 {
-        font-size: 24px;
-    }
-
-    .table-responsive th,
-    .table-responsive td {
-        padding: 12px;
-        white-space: nowrap;
-    }
-}
 
 /* Organização dos campos do formulário */
 .form-grid {
@@ -501,6 +484,7 @@ footer {
 }
 
 /* Responsividade do formulário */
+/* Responsividade dos formulários e tabelas */
 @media (max-width: 768px) {
 
     .form-container {
@@ -510,6 +494,12 @@ footer {
 
     .form-container h1 {
         font-size: 24px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 12px;
+        white-space: nowrap;
     }
 
     .form-grid {
@@ -601,6 +591,25 @@ footer {
 
 .movement-form > a:hover {
     text-decoration: underline;
+}
+
+/* Ajustes para celulares */
+@media (max-width: 768px) {
+
+    .form-container {
+        margin: 20px 10px;
+        padding: 20px 15px;
+    }
+
+    .form-container h1 {
+        font-size: 24px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 12px;
+        white-space: nowrap;
+    }
 }
 
 /* Responsividade */
@@ -757,4 +766,31 @@ footer {
 
 .table-container tbody tr:hover {
     background-color: #f8fafc;
+}
+
+/* Formulário de pesquisa de produtos */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-form input[name="busca"] {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-form button {
+    border: none;
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #1d4ed8;
 }

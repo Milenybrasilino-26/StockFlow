@@ -1,152 +1,129 @@
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Histórico de movimentações | StockFlow{% endblock %}
 
-    <title>Histórico de movimentações | StockFlow</title>
+{% block content %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
+<section class="form-container">
 
-<body>
+    <h1>Histórico de movimentações</h1>
 
-    <header class="header">
-        <div class="logo">
-            <h2>StockFlow</h2>
+    <p>
+        Acompanhe as entradas e saídas registradas no estoque.
+    </p>
+
+    <a href="{{ url_for('movimentacoes.nova_movimentacao') }}"
+       class="btn-cadastrar">
+        + Nova movimentação
+    </a>
+
+    <form method="GET"
+          action="{{ url_for('movimentacoes.listar') }}"
+          class="filters-form">
+
+        <div class="form-group">
+            <label for="produto_id">Filtrar por produto</label>
+
+            <select name="produto_id" id="produto_id" class="form-control">
+                <option value="">Todos os produtos</option>
+
+                {% for produto in produtos %}
+                    <option
+                        value="{{ produto.id }}"
+                        {% if produto_selecionado == produto.id %}selected{% endif %}
+                    >
+                        {{ produto.sku }} - {{ produto.nome }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
-        <nav class="nav-links">
-            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('produtos.listar_produtos') }}">Produtos</a>
-            <a href="{{ url_for('produtos.novo_produto') }}">Novo produto</a>
-            <a href="{{ url_for('movimentacoes.listar') }}">Movimentações</a>
-        </nav>
-    </header>
+        <div class="form-group">
+            <label for="tipo">Tipo de movimentação</label>
 
-    <main class="form-container">
+            <select name="tipo" id="tipo" class="form-control">
 
-        <h1>Histórico de movimentações</h1>
+                <option value="">Todas</option>
 
-        <p>
-            Acompanhe as entradas e saídas registradas no estoque.
-        </p>
+                <option value="ENTRADA"
+                    {% if tipo_selecionado == "ENTRADA" %}selected{% endif %}>
+                    Entrada
+                </option>
 
-        <a href="{{ url_for('movimentacoes.nova_movimentacao') }}"
-           class="btn-cadastrar">
-            + Nova movimentação
-        </a>
+                <option value="SAIDA"
+                    {% if tipo_selecionado == "SAIDA" %}selected{% endif %}>
+                    Saída
+                </option>
 
-        <form method="GET"
-              action="{{ url_for('movimentacoes.listar') }}"
-              class="filters-form">
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="produto_id">Filtrar por produto</label>
+        <div class="filter-actions">
+            <button type="submit" class="btn-primary">
+                Filtrar movimentações
+            </button>
 
-                <select name="produto_id" id="produto_id" class="form-control">
-                    <option value="">Todos os produtos</option>
+            <a href="{{ url_for('movimentacoes.listar') }}"
+               class="btn-clear">
+                Limpar filtros
+            </a>
+        </div>
 
-                    {% for produto in produtos %}
-                        <option
-                            value="{{ produto.id }}"
-                            {% if produto_selecionado == produto.id %}selected{% endif %}
-                        >
-                            {{ produto.sku }} - {{ produto.nome }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
+    </form>
 
-            <div class="form-group">
-                <label for="tipo">Tipo de movimentação</label>
+    {% if movimentacoes %}
 
-                <select name="tipo" id="tipo" class="form-control">
+        <div class="table-responsive">
 
-                    <option value="">Todas</option>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Produto</th>
+                        <th>Tipo</th>
+                        <th>Quantidade</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
 
-                    <option value="ENTRADA"
-                        {% if tipo_selecionado == "ENTRADA" %}selected{% endif %}>
-                        Entrada
-                    </option>
-
-                    <option value="SAIDA"
-                        {% if tipo_selecionado == "SAIDA" %}selected{% endif %}>
-                        Saída
-                    </option>
-
-                </select>
-            </div>
-
-            <div class="filter-actions">
-                <button type="submit" class="btn-primary">
-                    Filtrar movimentações
-                </button>
-
-                <a href="{{ url_for('movimentacoes.listar') }}"
-                   class="btn-clear">
-                    Limpar filtros
-                </a>
-            </div>
-
-        </form>
-
-        {% if movimentacoes %}
-
-            <div class="table-responsive">
-
-                <table>
-                    <thead>
+                <tbody>
+                    {% for movimentacao in movimentacoes %}
                         <tr>
-                            <th>Data</th>
-                            <th>Produto</th>
-                            <th>Tipo</th>
-                            <th>Quantidade</th>
-                            <th>Motivo</th>
+                            <td>
+                                {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
+                            </td>
+
+                            <td>{{ movimentacao.produto.nome }}</td>
+
+                            <td>
+                                {% if movimentacao.tipo == "ENTRADA" %}
+                                    <span class="movement-type entrada">Entrada</span>
+                                {% else %}
+                                    <span class="movement-type saida">Saída</span>
+                                {% endif %}
+                            </td>
+
+                            <td>{{ movimentacao.quantidade }}</td>
+
+                            <td>{{ movimentacao.motivo }}</td>
                         </tr>
-                    </thead>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-                    <tbody>
-                        {% for movimentacao in movimentacoes %}
-                            <tr>
-                                <td>
-                                    {{ movimentacao.data_movimentacao.strftime('%d/%m/%Y %H:%M') }}
-                                </td>
+        </div>
 
-                                <td>{{ movimentacao.produto.nome }}</td>
+    {% else %}
 
-                                <td>
-                                    {% if movimentacao.tipo == "ENTRADA" %}
-                                        <span class="movement-type entrada">Entrada</span>
-                                    {% else %}
-                                        <span class="movement-type saida">Saída</span>
-                                    {% endif %}
-                                </td>
+        <p>Nenhuma movimentação encontrada para os filtros selecionados.</p>
 
-                                <td>{{ movimentacao.quantidade }}</td>
+    {% endif %}
 
-                                <td>{{ movimentacao.motivo }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <a href="{{ url_for('main.dashboard') }}" class="btn-back">
+        Voltar ao dashboard
+    </a>
 
-            </div>
+</section>
 
-        {% else %}
-
-            <p>Nenhuma movimentação encontrada para os filtros selecionados.</p>
-
-        {% endif %}
-
-        <a href="{{ url_for('main.dashboard') }}" class="btn-back">
-            Voltar ao dashboard
-        </a>
-
-    </main>
-
-</body>
-</html>
+{% endblock %}
